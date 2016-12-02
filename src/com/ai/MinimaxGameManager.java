@@ -2,12 +2,11 @@ package com.ai;
 
 import com.ai.heuristic.EmptyTileAndLargeEdgeTileHeuristic;
 import com.ai.heuristic.Heuristic;
-import com.ai.model.Direction;
-import com.ai.model.GameState;
-import com.ai.model.GameTree;
-import com.ai.model.GameTreeNode;
+import com.ai.model.*;
 
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by z on 12/2/16.
@@ -26,10 +25,15 @@ public class MinimaxGameManager {
         int minHeuristicValue = Integer.MAX_VALUE;
         Direction minHeuristicDirection = null;
         for (GameState gameState : allNextGameStateBySliding.keySet()) {
-            GameTree gameTree = new GameTree(gameState, 5);
+            if (gameState.equals(currentGameState)) {
+                continue;
+            }
+            GameTree gameTree = new GameTree(gameState, 5, MinimaxLevelType.Max);
+//            Logger.getLogger(MinimaxGameManager.class.getName()).log(Level.INFO, "game tree ready");
             GameTreeNode gameTreeNode = gameTree.root;
             int heuristicVal = heuristicEvaluator.evaluate(emptyTIleAndLargeEdgeTileHeuristic, gameTreeNode,
                     3, HeuristicEvaluator.MinimaxLevelType.Max);
+//            Logger.getLogger(MinimaxGameManager.class.getName()).log(Level.INFO, Integer.toString(heuristicVal));
             if (heuristicVal < minHeuristicValue) {
                 minHeuristicDirection = allNextGameStateBySliding.get(gameState);
                 minHeuristicValue = heuristicVal;

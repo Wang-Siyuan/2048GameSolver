@@ -10,14 +10,15 @@ public class EmptyTileAndLargeEdgeTileHeuristic implements Heuristic {
     @Override
     public int evaluate(GameState gameState) {
         int score = 0;
-        int gameStateAverageValue = gameState.getAverageTileValue()/16;
+        double avgVal = gameState.getAverageTileValue();
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                if (gameState.tileValues[i][j] > gameStateAverageValue && Utility.isEdgePosition(i, j)
-                        || gameState.tileValues[i][j] == 0) {
+                if (gameState.tileValues[i][j] > avgVal && Utility.isEdgePosition(i, j)){
+                    score += gameState.tileValues[i][j]/avgVal;
+                } else if (gameState.tileValues[i][j] == 0) {
                     score++;
-                } else if (gameState.tileValues[i][j] < gameStateAverageValue && Utility.isEdgePosition(i,j)) {
-                    score--;
+                } else if (gameState.tileValues[i][j] < avgVal && Utility.isEdgePosition(i,j)) {
+                    score -= avgVal/gameState.tileValues[i][j];
                 }
             }
         }

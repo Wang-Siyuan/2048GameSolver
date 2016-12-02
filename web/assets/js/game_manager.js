@@ -57,7 +57,13 @@ GameManager.prototype.nextBestMove = function () {
 };
 
 GameManager.prototype.autoPlay = function () {
-  alert("autoPlay");
+  this.nextBestMove();
+  var _this = this;
+  setTimeout(function () {    //  call a 3s setTimeout when the loop is called
+    if (!this.won) {            //  if the counter < 10, call the loop function
+      _this.autoPlay();             //  ..  again which will trigger another
+    }                        //  ..  setTimeout()
+  }, 200);
 };
 
 // Keep playing after winning (allows going over 2048)

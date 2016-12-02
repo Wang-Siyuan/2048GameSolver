@@ -12,19 +12,21 @@ public class GameTree {
     public GameTreeNode root;
     public int depth;
 
-    public GameTree(GameState currentGameState, int depth) {
+    public GameTree(GameState currentGameState, int depth, MinimaxLevelType levelType) {
         this.root = new GameTreeNode(currentGameState);
         this.depth = depth;
         if (depth > 0) {
             Set<GameState> childGameStateList;
-            if (depth % 2 == 0) {
+            if (levelType == MinimaxLevelType.Max) {
                 childGameStateList = gameStateManager.getAllNextGameStateBySliding(currentGameState).keySet();
             } else {
                 childGameStateList = gameStateManager.getAllNextGameStateByAddingNewTile(currentGameState);
             }
             for (GameState childGameState : childGameStateList) {
-                GameTree gameTree = new GameTree(childGameState, depth-1);
-                this.root.childNodes.add(gameTree.root);
+                if (!childGameState.equals(currentGameState)) {
+                    GameTree gameTree = new GameTree(childGameState, depth - 1, MinimaxLevelType.getOppositeType(levelType));
+                    this.root.childNodes.add(gameTree.root);
+                }
             }
         }
     }

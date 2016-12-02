@@ -9,7 +9,7 @@ import java.util.*;
  * Created by z on 12/2/16.
  */
 public class GameStateManager {
-    List<Integer> POSSIBLE_NEW_TILE_VALUES = Arrays.asList(2, 4);
+    public static final List<Integer> POSSIBLE_NEW_TILE_VALUES = Arrays.asList(2, 4);
 
     public Set<GameState> getAllNextGameStateByAddingNewTile(GameState current) {
         Set<GameState> gameStates = new HashSet<>();
@@ -44,102 +44,141 @@ public class GameStateManager {
     }
 
     public GameState slide(GameState current, Direction direction) {
+        boolean[][] merged = new boolean[4][4];
         GameState ret = current;
         if (direction == Direction.Up) {
             for (int j = 0; j < 4; j++) {
                 for (int i = 0; i < 4; i++) {
-                    ret = slideSingleTileAndMerge(ret, i, j, direction);
+                    ret = slideSingleTileAndMerge(ret, i, j, direction, merged);
                 }
             }
         } else if (direction == Direction.Down) {
             for (int j = 0; j < 4; j++) {
                 for (int i = 3; i >= 0; i--) {
-                    ret = slideSingleTileAndMerge(ret, i, j, direction);
+                    ret = slideSingleTileAndMerge(ret, i, j, direction, merged);
                 }
             }
         } else if (direction == Direction.Left) {
             for (int i = 0; i < 4; i++) {
-                for (int j = 3; j >= 0; j--) {
-                    ret = slideSingleTileAndMerge(ret, i, j, direction);
+                for (int j = 0; j < 4; j++) {
+                    ret = slideSingleTileAndMerge(ret, i, j, direction, merged);
                 }
             }
         } else {
             for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
-                    ret = slideSingleTileAndMerge(ret, i, j, direction);
+                for (int j = 3; j >= 0; j--) {
+                    ret = slideSingleTileAndMerge(ret, i, j, direction, merged);
                 }
             }
         }
         return ret;
     }
 
-    GameState slideSingleTileAndMerge(GameState current, int x, int y, Direction direction) {
+    GameState slideSingleTileAndMerge(GameState current, int x, int y, Direction direction, boolean[][] merged) {
         GameState newGameState = new GameState(current);
-        int newPos = y;
+        if (current.tileValues[x][y] == 0) {
+            return newGameState;
+        }
         if (direction == Direction.Up) {
-            for (int j = y - 1; j >= 0; j--) {
-                if (newGameState.tileValues[x][j] == 0) {
-                    newPos = j;
-                } else if (newGameState.tileValues[x][j] == newGameState.tileValues[x][y]) {
-                    newGameState.tileValues[x][j] = 2 * newGameState.tileValues[x][j];
-                    newGameState.tileValues[x][y] = 0;
-                    return newGameState;
-                } else {
-                    newGameState.tileValues[x][newPos] = newGameState.tileValues[x][y];
-                    newGameState.tileValues[x][y] = 0;
-                    return newGameState;
-                }
-            }
-            newGameState.tileValues[x][0] = newGameState.tileValues[x][y];
-            newGameState.tileValues[x][y] = 0;
-        } else if (direction == Direction.Down) {
-            for (int j = y + 1; j < 4; j++) {
-                if (newGameState.tileValues[x][j] == 0) {
-                    newPos = j;
-                } else if (newGameState.tileValues[x][j] == newGameState.tileValues[x][y]) {
-                    newGameState.tileValues[x][j] = 2 * newGameState.tileValues[x][j];
-                    newGameState.tileValues[x][y] = 0;
-                    return newGameState;
-                } else {
-                    newGameState.tileValues[x][newPos] = newGameState.tileValues[x][y];
-                    newGameState.tileValues[x][y] = 0;
-                    return newGameState;
-                }
-            }
-            newGameState.tileValues[x][3] = newGameState.tileValues[x][y];
-            newGameState.tileValues[x][y] = 0;
-        } else if (direction == Direction.Left) {
+            int newPos = x;
             for (int i = x - 1; i >= 0; i--) {
                 if (newGameState.tileValues[i][y] == 0) {
                     newPos = i;
-                } else if (newGameState.tileValues[i][y] == newGameState.tileValues[x][y]) {
+                } else if (merged[x][y] == false && merged[i][y] == false
+                        && newGameState.tileValues[i][y] == newGameState.tileValues[x][y]) {
                     newGameState.tileValues[i][y] = 2 * newGameState.tileValues[i][y];
                     newGameState.tileValues[x][y] = 0;
+                    merged[i][y] = true;
                     return newGameState;
                 } else {
-                    newGameState.tileValues[newPos][y] = newGameState.tileValues[x][y];
-                    newGameState.tileValues[x][y] = 0;
-                    return newGameState;
+                    if (newPos != x) {
+                        newGameState.tileValues[newPos][y] = newGameState.tileValues[x][y];
+                        newGameState.tileValues[x][y] = 0;
+                        return newGameState;
+                    } else {
+                        return newGameState;
+                    }
                 }
             }
-            newGameState.tileValues[0][y] = newGameState.tileValues[x][y];
-            newGameState.tileValues[x][y] = 0;
-        } else {
+            if (x != 0) {
+                newGameState.tileValues[0][y] = newGameState.tileValues[x][y];
+                newGameState.tileValues[x][y] = 0;
+            }
+        } else if (direction == Direction.Down) {
+            int newPos = x;
             for (int i = x + 1; i < 4; i++) {
                 if (newGameState.tileValues[i][y] == 0) {
                     newPos = i;
-                } else if (newGameState.tileValues[i][y] == newGameState.tileValues[x][y]) {
+                } else if (merged[x][y] == false && merged[i][y] == false
+                        && newGameState.tileValues[i][y] == newGameState.tileValues[x][y]) {
                     newGameState.tileValues[i][y] = 2 * newGameState.tileValues[i][y];
                     newGameState.tileValues[x][y] = 0;
+                    merged[i][y] = true;
                     return newGameState;
                 } else {
-                    newGameState.tileValues[newPos][y] = newGameState.tileValues[x][y];
-                    newGameState.tileValues[x][y] = 0;
-                    return newGameState;
+                    if (newPos != x) {
+                        newGameState.tileValues[newPos][y] = newGameState.tileValues[x][y];
+                        newGameState.tileValues[x][y] = 0;
+                        return newGameState;
+                    } else {
+                        return newGameState;
+                    }
                 }
             }
-            newGameState.tileValues[3][y] = newGameState.tileValues[x][y];
-            newGameState.tileValues[x][y] = 0;
+            if (x != 3) {
+                newGameState.tileValues[3][y] = newGameState.tileValues[x][y];
+                newGameState.tileValues[x][y] = 0;
+            }
+        } else if (direction == Direction.Left) {
+            int newPos = y;
+            for (int j = y - 1; j >= 0; j--) {
+                if (newGameState.tileValues[x][j] == 0) {
+                    newPos = j;
+                } else if (merged[x][y] == false && merged[x][j] == false
+                        && newGameState.tileValues[x][j] == newGameState.tileValues[x][y]) {
+                    newGameState.tileValues[x][j] = 2 * newGameState.tileValues[x][j];
+                    newGameState.tileValues[x][y] = 0;
+                    merged[x][j] = true;
+                    return newGameState;
+                } else {
+                    if (newPos != y) {
+                        newGameState.tileValues[x][newPos] = newGameState.tileValues[x][y];
+                        newGameState.tileValues[x][y] = 0;
+                        return newGameState;
+                    } else {
+                        return newGameState;
+                    }
+                }
+            }
+            if (y != 0) {
+                newGameState.tileValues[x][0] = newGameState.tileValues[x][y];
+                newGameState.tileValues[x][y] = 0;
+            }
+        } else {
+            int newPos = y;
+            for (int j = y + 1; j < 4; j++) {
+                if (newGameState.tileValues[x][j] == 0) {
+                    newPos = j;
+                } else if (merged[x][y] == false && merged[x][j] == false
+                        && newGameState.tileValues[x][j] == newGameState.tileValues[x][y]) {
+                    newGameState.tileValues[x][j] = 2 * newGameState.tileValues[x][j];
+                    newGameState.tileValues[x][y] = 0;
+                    merged[x][j] = true;
+                    return newGameState;
+                } else {
+                    if (newPos != y) {
+                        newGameState.tileValues[x][newPos] = newGameState.tileValues[x][y];
+                        newGameState.tileValues[x][y] = 0;
+                        return newGameState;
+                    } else {
+                        return newGameState;
+                    }
+                }
+            }
+            if (y != 3) {
+                newGameState.tileValues[x][3] = newGameState.tileValues[x][y];
+                newGameState.tileValues[x][y] = 0;
+            }
         }
         return newGameState;
     }

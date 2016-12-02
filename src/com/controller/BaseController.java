@@ -1,7 +1,6 @@
 package com.controller;
 
 import com.ai.model.Grid;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,7 @@ import java.util.logging.Logger;
 public class BaseController {
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public ModelAndView home(HttpSession httpSession) throws UnirestException {
+    public ModelAndView home(HttpSession httpSession) {
         ModelAndView m = new ModelAndView("/home", "wordDefinition", null);
         return m;
     }

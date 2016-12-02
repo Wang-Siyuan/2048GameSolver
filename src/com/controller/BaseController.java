@@ -1,8 +1,6 @@
 package com.controller;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
+import com.ai.model.Grid;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -31,21 +29,9 @@ public class BaseController {
     @RequestMapping(value="/getNextBestMove", method = RequestMethod.POST)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public String getNextBestMove(@RequestParam MultiValueMap<String, String> map) {
-        Logger.getLogger(BaseController.class.getName()).log(Level.INFO, map.toString());
+    public String getNextBestMove(@RequestParam MultiValueMap<String, String> requestMap) {
+        Grid grid = new Grid(requestMap.getFirst("gameState"));
+        Logger.getLogger(BaseController.class.getName()).log(Level.INFO, grid.toString());
         return "3";
-    }
-
-    @RequestMapping(value = "/definition/{word}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public
-    @ResponseBody
-    String definition(@PathVariable(value = "word") String word) throws UnirestException {
-        String request = "https://wordsapiv1.p.mashape.com/words/" + word + "/definitions";
-        HttpResponse<JsonNode> response = Unirest.get(request)
-                .header("X-Mashape-Key", "ElQALjRgBzmshJ8jA5PmgxKcDtXbp1ytulzjsnM8LA75nYPMui")
-                .header("Accept", "application/json")
-                .asJson();
-        return response.getBody().toString();
     }
 }

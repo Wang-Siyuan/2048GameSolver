@@ -25,11 +25,23 @@ GameManager.prototype.restart = function () {
 // nextBestMove
 GameManager.prototype.nextBestMove = function () {
   var direction;
+  var gameStateData = "";
+  var gameState = this.storageManager.getGameState();
+  for (i = 0; i < 4; i++) {
+    for (j = 0; j < 4; j++) {
+      if (gameState.grid.cells[j][i] !== null) {
+        gameStateData += gameState.grid.cells[j][i].value;
+      } else {
+        gameStateData += "0";
+      }
+      gameStateData += " ";
+    }
+  }
   $.ajax({
     url : 'http://localhost:8080/getNextBestMove',
     type : 'POST',
     data : {
-      'numberOfWords' : 10
+      'gameState': gameStateData
     },
     dataType:'text',
     success : function(data) {
@@ -41,9 +53,7 @@ GameManager.prototype.nextBestMove = function () {
     },
     async: false
   });
-  //$.when.apply($, direction).then(function() {
   this.move(direction);
-  //});
 };
 
 GameManager.prototype.autoPlay = function () {

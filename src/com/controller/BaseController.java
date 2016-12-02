@@ -1,6 +1,8 @@
 package com.controller;
 
-import com.ai.model.Grid;
+import com.ai.MinimaxGameManager;
+import com.ai.model.Direction;
+import com.ai.model.GameState;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import java.util.logging.Logger;
 @Controller
 @Component
 public class BaseController {
+    MinimaxGameManager minimaxGameManager = new MinimaxGameManager();
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView home(HttpSession httpSession) {
@@ -29,8 +32,9 @@ public class BaseController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public String getNextBestMove(@RequestParam MultiValueMap<String, String> requestMap) {
-        Grid grid = new Grid(requestMap.getFirst("gameState"));
-        Logger.getLogger(BaseController.class.getName()).log(Level.INFO, grid.toString());
-        return "3";
+        GameState gameState = new GameState(requestMap.getFirst("gameState"));
+        Direction direction = minimaxGameManager.getNextBestMoveForUser(gameState);
+        Logger.getLogger(BaseController.class.getName()).log(Level.INFO, gameState.toString());
+        return Integer.toString(direction.numVal);
     }
 }

@@ -8,16 +8,39 @@ import com.ai.model.GameTreeNode;
  */
 public class HeuristicEvaluator {
 
-    public int evaluate(Heuristic heuristic, GameTreeNode gameTreeNode, int depth, MinimaxLevelType levelType) {
+    public int evaluate(Heuristic[] heuristic, GameTreeNode gameTreeNode, int depth, MinimaxLevelType levelType, int alpha, int beta) {
         if (depth == 0) {
-            return heuristic.evaluate(gameTreeNode.gameState);
+            int val = 0;
+            for(Heuristic h : heuristic){
+                val += h.evaluate(gameTreeNode.gameState);
+            }
+            return val;
         }
-        int ret = (levelType == MinimaxLevelType.Min) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
-        for (GameTreeNode childNode : gameTreeNode.childNodes) {
-            int val = evaluate(heuristic, childNode, depth - 1, MinimaxLevelType.getOppositeType(levelType));
-            ret = (levelType == MinimaxLevelType.Min) ? Math.min(ret, val) : Math.max(ret, val);
+        if(levelType == MinimaxLevelType.Max){
+            for(GameTreeNode childNode : gameTreeNode.childNodes){
+                int val = evaluate(heuristic, childNode, depth - 1, MinimaxLevelType.getOppositeType(levelType), alpha, beta);
+                if(val > alpha){
+                    alpha = val;
+                }
+                if(alpha >= beta){
+                    break;
+                }
+            }
+            return alpha;
         }
-        return ret;
+
+        else if(levelType == MinimaxLevelType.Min){
+            for(GameTreeNode childNode : gameTreeNode.childNodes){
+                int val = evaluate(heuristic, childNode, depth - 1, MinimaxLevelType.getOppositeType(levelType), alpha, beta);
+                if(val < beta){
+                    beta = val;
+                }
+                if(alpha >= beta){
+                    break;
+                }
+            }
+        }
+        return beta;
     }
 
     enum MinimaxLevelType {

@@ -1,6 +1,9 @@
 package com.ai;
 
 import com.ai.heuristic.EmptyTileAndLargeEdgeTileHeuristic;
+import com.ai.heuristic.LargestNumberAtCorner;
+import com.ai.heuristic.MonotonicityHeuristic;
+import com.ai.heuristic.SmoothnessHeuristic;
 import com.ai.heuristic.Heuristic;
 import com.ai.model.*;
 
@@ -14,7 +17,8 @@ import java.util.logging.Logger;
 public class MinimaxGameManager {
     GameStateManager gameStateManager = new GameStateManager();
     HeuristicEvaluator heuristicEvaluator = new HeuristicEvaluator();
-    Heuristic emptyTIleAndLargeEdgeTileHeuristic = new EmptyTileAndLargeEdgeTileHeuristic();
+    Heuristic[] heuristics =  new Heuristic[]{new EmptyTileAndLargeEdgeTileHeuristic(),
+            new LargestNumberAtCorner(), new SmoothnessHeuristic(), new MonotonicityHeuristic()};
 
     public MinimaxGameManager() {
     }
@@ -31,8 +35,8 @@ public class MinimaxGameManager {
             GameTree gameTree = new GameTree(gameState, 5, MinimaxLevelType.Max);
 //            Logger.getLogger(MinimaxGameManager.class.getName()).log(Level.INFO, "game tree ready");
             GameTreeNode gameTreeNode = gameTree.root;
-            int heuristicVal = heuristicEvaluator.evaluate(emptyTIleAndLargeEdgeTileHeuristic, gameTreeNode,
-                    3, HeuristicEvaluator.MinimaxLevelType.Max);
+            int heuristicVal = heuristicEvaluator.evaluate(heuristics, gameTreeNode,
+                    5, HeuristicEvaluator.MinimaxLevelType.Max, Integer.MIN_VALUE, Integer.MAX_VALUE);
 //            Logger.getLogger(MinimaxGameManager.class.getName()).log(Level.INFO, Integer.toString(heuristicVal));
             if (heuristicVal < minHeuristicValue) {
                 minHeuristicDirection = allNextGameStateBySliding.get(gameState);

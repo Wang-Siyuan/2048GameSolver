@@ -21,6 +21,7 @@ public class GameTree {
                 childGameStateList = gameStateManager.getAllNextGameStateBySliding(currentGameState).keySet();
             } else {
                 childGameStateList = gameStateManager.getAllNextGameStateByAddingNewTile(currentGameState);
+
             }
             for (GameState childGameState : childGameStateList) {
                 if (!childGameState.equals(currentGameState)) {

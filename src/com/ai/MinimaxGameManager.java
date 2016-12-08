@@ -18,7 +18,7 @@ public class MinimaxGameManager {
     GameStateManager gameStateManager = new GameStateManager();
     HeuristicEvaluator heuristicEvaluator = new HeuristicEvaluator();
     Heuristic[] heuristics =  new Heuristic[]{new EmptyTileAndLargeEdgeTileHeuristic(),
-            new LargestNumberAtCorner(), new SmoothnessHeuristic(), new MonotonicityHeuristic()};
+            new LargestNumberAtCorner(), new MonotonicityHeuristic(), new SmoothnessHeuristic()};
 
     public MinimaxGameManager() {
     }
@@ -26,7 +26,7 @@ public class MinimaxGameManager {
     public Direction getNextBestMoveForUser(GameState currentGameState) {
         Map<GameState, Direction> allNextGameStateBySliding = gameStateManager
                 .getAllNextGameStateBySliding(currentGameState);
-        int minHeuristicValue = Integer.MAX_VALUE;
+        int maxHeuristicValue = Integer.MIN_VALUE;
         Direction minHeuristicDirection = null;
         for (GameState gameState : allNextGameStateBySliding.keySet()) {
             if (gameState.equals(currentGameState)) {
@@ -38,9 +38,9 @@ public class MinimaxGameManager {
             int heuristicVal = heuristicEvaluator.evaluate(heuristics, gameTreeNode,
                     5, HeuristicEvaluator.MinimaxLevelType.Max, Integer.MIN_VALUE, Integer.MAX_VALUE);
 //            Logger.getLogger(MinimaxGameManager.class.getName()).log(Level.INFO, Integer.toString(heuristicVal));
-            if (heuristicVal < minHeuristicValue) {
+            if (heuristicVal > maxHeuristicValue) {
                 minHeuristicDirection = allNextGameStateBySliding.get(gameState);
-                minHeuristicValue = heuristicVal;
+                maxHeuristicValue = heuristicVal;
             }
         }
         return minHeuristicDirection;

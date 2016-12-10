@@ -1,10 +1,6 @@
 package com.ai;
 
-import com.ai.heuristic.EmptyTileAndLargeEdgeTileHeuristic;
-import com.ai.heuristic.LargestNumberAtCorner;
-import com.ai.heuristic.MonotonicityHeuristic;
-import com.ai.heuristic.SmoothnessHeuristic;
-import com.ai.heuristic.Heuristic;
+import com.ai.heuristic.*;
 import com.ai.model.*;
 
 import java.util.Map;
@@ -17,8 +13,9 @@ import java.util.logging.Logger;
 public class MinimaxGameManager {
     GameStateManager gameStateManager = new GameStateManager();
     HeuristicEvaluator heuristicEvaluator = new HeuristicEvaluator();
-    Heuristic[] heuristics =  new Heuristic[]{new EmptyTileAndLargeEdgeTileHeuristic(),
-            new LargestNumberAtCorner(), new MonotonicityHeuristic(), new SmoothnessHeuristic()};
+
+    Heuristic[] heuristics =  new Heuristic[]{new LargestNumberAtCorner(),
+            new EmptyTileHeuristic(), new MonotonicityHeuristic(), new SmoothnessHeuristic()};
 
     public MinimaxGameManager() {
     }
@@ -26,17 +23,19 @@ public class MinimaxGameManager {
     public Direction getNextBestMoveForUser(GameState currentGameState) {
         Map<GameState, Direction> allNextGameStateBySliding = gameStateManager
                 .getAllNextGameStateBySliding(currentGameState);
-        int maxHeuristicValue = Integer.MIN_VALUE;
+        double maxHeuristicValue = -Double.MAX_VALUE;
         Direction minHeuristicDirection = null;
         for (GameState gameState : allNextGameStateBySliding.keySet()) {
             if (gameState.equals(currentGameState)) {
                 continue;
             }
-            GameTree gameTree = new GameTree(gameState, 5, MinimaxLevelType.Max);
-//            Logger.getLogger(MinimaxGameManager.class.getName()).log(Level.INFO, "game tree ready");
-            GameTreeNode gameTreeNode = gameTree.root;
-            int heuristicVal = heuristicEvaluator.evaluate(heuristics, gameTreeNode,
-                    5, HeuristicEvaluator.MinimaxLevelType.Max, Integer.MIN_VALUE, Integer.MAX_VALUE);
+//            long startTime = System.currentTimeMillis();
+//            GameTree gameTree = new GameTree(gameState, 7, MinimaxLevelType.Max);
+//            GameTreeNode gameTreeNode = gameTree.root;
+            double heuristicVal = heuristicEvaluator.evaluate(heuristics, gameState,
+                    5, MinimaxLevelType.Max, Integer.MIN_VALUE, Integer.MAX_VALUE);
+//            Logger.getLogger(MinimaxGameManager.class.getName()).log(Level.INFO, "Time spent evaluating heuristic: " + (System.currentTimeMillis() - startTime));
+
 //            Logger.getLogger(MinimaxGameManager.class.getName()).log(Level.INFO, Integer.toString(heuristicVal));
             if (heuristicVal > maxHeuristicValue) {
                 minHeuristicDirection = allNextGameStateBySliding.get(gameState);

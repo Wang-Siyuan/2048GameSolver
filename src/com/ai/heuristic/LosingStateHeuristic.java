@@ -5,11 +5,14 @@ import com.ai.model.GameState;
 /**
  * Created by z on 12/10/16.
  */
-public class MaxValueHeuristic implements Heuristic {
+public class LosingStateHeuristic implements Heuristic {
     @Override
     public double evaluate(GameState gameState) {
-        return (Math.log(gameState.getMax())/Math.log(2));
-//        return gameState.getMax();
+        if (gameState.isLost()) {
+            return -100000.00;
+        } else {
+            return 0;
+        }
     }
 
     @Override

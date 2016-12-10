@@ -1,6 +1,7 @@
 package com.ai;
 
 import com.ai.heuristic.Heuristic;
+import com.ai.heuristic.LargestNumberAtCorner;
 import com.ai.model.Direction;
 import com.ai.model.GameState;
 import com.ai.model.GameTreeNode;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
  */
 public class HeuristicEvaluator {
     GameStateManager gameStateManager = new GameStateManager();
+    LargestNumberAtCorner largestNumberAtCorner = new LargestNumberAtCorner();
     public double evaluate(Heuristic[] heuristic, GameState gameState, int depth, MinimaxLevelType levelType, double alpha, double beta) {
         if (depth == 0) {
             double val = 0;
@@ -27,10 +29,17 @@ public class HeuristicEvaluator {
                 val += result;
 //                Logger.getLogger(Heuristic.class.getName()).log(Level.INFO, "Heuristic " + h.getClass().getName() + " has result " + result);
             }
+            double result = largestNumberAtCorner.evaluate(gameState);
+            if (result != 0) {
+                if (result > 0) {
+                    val = Math.abs(result*val);
+                } else {
+                    val = -1.00 * Math.abs(result*val);
+                }
+            }
 //            Logger.getLogger(HeuristicEvaluator.class.getName()).log(Level.INFO, "Heuristic " + line);
             return val;
-        }
-        if(levelType == MinimaxLevelType.Max){
+        } else if(levelType == MinimaxLevelType.Max){
             Map<GameState, Direction> allNextGameStateBySliding = gameStateManager.getAllNextGameStateBySliding(gameState);
             for(GameState childGameState : allNextGameStateBySliding.keySet()){
                 double val = evaluate(heuristic, childGameState, depth - 1, MinimaxLevelType.getOppositeType(levelType), alpha, beta);
@@ -42,9 +51,7 @@ public class HeuristicEvaluator {
                 }
             }
             return alpha;
-        }
-
-        else if(levelType == MinimaxLevelType.Min){
+        } else {
             Set<GameState> allNextGameStateByAddingNewTile = gameStateManager.getAllNextGameStateByAddingNewTile(gameState);
             for(GameState childGameState : allNextGameStateByAddingNewTile){
                 double val = evaluate(heuristic, childGameState, depth - 1, MinimaxLevelType.getOppositeType(levelType), alpha, beta);
@@ -55,7 +62,7 @@ public class HeuristicEvaluator {
                     break;
                 }
             }
+            return beta;
         }
-        return beta;
     }
 }

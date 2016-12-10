@@ -14,8 +14,8 @@ public class MinimaxGameManager {
     GameStateManager gameStateManager = new GameStateManager();
     HeuristicEvaluator heuristicEvaluator = new HeuristicEvaluator();
 
-    Heuristic[] heuristics =  new Heuristic[]{new LargestNumberAtCorner(),
-            new EmptyTileHeuristic(), new MonotonicityHeuristic(), new SmoothnessHeuristic()};
+    Heuristic[] heuristics =  new Heuristic[]{new SmoothnessHeuristic(), new MonotonicityHeuristic(),
+            new EmptyTileHeuristic(), new MaxValueHeuristic(), new LosingStateHeuristic(), new MergeableTilesHeuristic()};
 
     public MinimaxGameManager() {
     }
@@ -33,7 +33,7 @@ public class MinimaxGameManager {
 //            GameTree gameTree = new GameTree(gameState, 7, MinimaxLevelType.Max);
 //            GameTreeNode gameTreeNode = gameTree.root;
             double heuristicVal = heuristicEvaluator.evaluate(heuristics, gameState,
-                    5, MinimaxLevelType.Max, Integer.MIN_VALUE, Integer.MAX_VALUE);
+                    5, MinimaxLevelType.Max, -Double.MAX_VALUE, Double.MAX_VALUE);
 //            Logger.getLogger(MinimaxGameManager.class.getName()).log(Level.INFO, "Time spent evaluating heuristic: " + (System.currentTimeMillis() - startTime));
 
 //            Logger.getLogger(MinimaxGameManager.class.getName()).log(Level.INFO, Integer.toString(heuristicVal));

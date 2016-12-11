@@ -20,47 +20,47 @@ public class LargestNumberAtCorner implements Heuristic {
                     y = j;
                     max = gameState.tileValues[i][j];
                 }
-//                boolean isCorner = isCorner(i, j);
-//                boolean isColumnMax = gameState.isColumnMax(i, j);
-//                boolean isRowMax = gameState.isRowMax(i, j);
-//                boolean isEdge = isEdge(i, j);
-//                if (isCorner && gameState.tileValues[i][j] == gameStateMax) {
-//                    score += 10;
-//                } else if (isCorner && (isColumnMax || isRowMax)) {
-//                    score += 3;
-//                } else if (isEdge && (isColumnMax || isRowMax)) {
-//                    score += 2;
-//                }
-//                if (!isCorner && gameState.tileValues[i][j] == gameStateMax) {
-//                    score -= 20;
-//                }
-//                if (!isCorner && !isEdge && gameState.tileValues[i][j] == gameStateMax) {
-//                    score -= 50;
-//                }
-                if(gameState.tileValues[i][j] > max){
-                    x = i;
-                    y = j;
-                    max = gameState.tileValues[i][j];
-                }
-
-                if(gameState.tileValues[i][j] == 64){
+                boolean isCorner = isCorner(i, j);
+                boolean isColumnMax = gameState.isColumnMax(i, j);
+                boolean isRowMax = gameState.isRowMax(i, j);
+                boolean isEdge = isEdge(i, j);
+                if (isCorner && gameState.tileValues[i][j] == gameStateMax) {
+                    score += 10;
+                } else if (isCorner && (isColumnMax || isRowMax)) {
                     score += 3;
+                } else if (isEdge && (isColumnMax || isRowMax)) {
+                    score += 2;
                 }
-                if(gameState.tileValues[i][j] == 128){
-                    score += 7;
+                if (!isCorner && gameState.tileValues[i][j] == gameStateMax) {
+                    score -= 20;
                 }
-                if(gameState.tileValues[i][j] == 256){
-                    score += 15;
+                if (!isCorner && !isEdge && gameState.tileValues[i][j] == gameStateMax) {
+                    score -= 50;
                 }
-                if(gameState.tileValues[i][j] == 512){
-                    score += 31;
-                }
-                if(gameState.tileValues[i][j] == 1024){
-                    score += 63;
-                }
-                if(gameState.tileValues[i][j] == 2048) {
-                    score += 127;
-                }
+//                if(gameState.tileValues[i][j] > max){
+//                    x = i;
+//                    y = j;
+//                    max = gameState.tileValues[i][j];
+//                }
+//
+//                if(gameState.tileValues[i][j] == 64){
+//                    score += 3;
+//                }
+//                if(gameState.tileValues[i][j] == 128){
+//                    score += 7;
+//                }
+//                if(gameState.tileValues[i][j] == 256){
+//                    score += 15;
+//                }
+//                if(gameState.tileValues[i][j] == 512){
+//                    score += 31;
+//                }
+//                if(gameState.tileValues[i][j] == 1024){
+//                    score += 63;
+//                }
+//                if(gameState.tileValues[i][j] == 2048) {
+//                    score += 127;
+//                }
             }
         }
 
@@ -131,7 +131,7 @@ public class LargestNumberAtCorner implements Heuristic {
 
     @Override
     public double getWeight() {
-        return 1.0;
+        return 2.0;
     }
 
     boolean isCorner(int x, int y) {

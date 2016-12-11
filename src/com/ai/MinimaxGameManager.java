@@ -23,7 +23,7 @@ public class MinimaxGameManager {
     public Direction getNextBestMoveForUser(GameState currentGameState) {
         Map<GameState, Direction> allNextGameStateBySliding = gameStateManager
                 .getAllNextGameStateBySliding(currentGameState);
-        double maxHeuristicValue = -Double.MAX_VALUE;
+        double maxHeuristicValue = Double.MIN_VALUE;
         Direction minHeuristicDirection = null;
         for (GameState gameState : allNextGameStateBySliding.keySet()) {
             if (gameState.equals(currentGameState)) {

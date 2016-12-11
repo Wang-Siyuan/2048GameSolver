@@ -13,7 +13,7 @@ public class EmptyTileHeuristic implements Heuristic {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if(gameState.tileValues[i][j] == 0){
-                    score++;
+                    score += 3;
                 }
             }
         }

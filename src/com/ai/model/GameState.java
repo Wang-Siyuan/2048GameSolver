@@ -1,9 +1,6 @@
 package com.ai.model;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,23 +18,6 @@ public class GameState {
         }
     }
 
-    public List<Integer> getRowValues(int rownum) {
-        return Arrays.asList(tileValues[rownum][0], tileValues[rownum][1], tileValues[rownum][2], tileValues[rownum][3]);
-    }
-
-    public List<Integer> getColumnValues(int colnum) {
-        return Arrays.asList(tileValues[0][colnum], tileValues[1][colnum], tileValues[2][colnum], tileValues[3][colnum]);
-    }
-
-    public List<Integer> getNonZeroValues(List<Integer> values) {
-        List<Integer> ret = new ArrayList<>();
-        for (Integer val : values) {
-            if (val.intValue() != 0) {
-                ret.add(val);
-            }
-        }
-        return ret;
-    }
     public GameState(String concatenatedTileValues) {
         String[] vals = concatenatedTileValues.split(" ");
         if (vals.length != 16) {
@@ -104,33 +84,5 @@ public class GameState {
             }
         }
         return count;
-    }
-
-    public int getMax() {
-        List<Integer> maxValues = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            maxValues.add(Collections.max(getColumnValues(i)));
-        }
-        return Collections.max(maxValues);
-    }
-
-    public int getNumOfNonZeroTiles() {
-        int counter = 0;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (this.tileValues[i][j] != 0) {
-                    counter ++;
-                }
-            }
-        }
-        return counter;
-    }
-
-    public boolean isColumnMax(int i, int j) {
-        return this.tileValues[i][j] == Collections.max(getColumnValues(j));
-    }
-
-    public boolean isRowMax(int i, int j) {
-        return this.tileValues[i][j] == Collections.max(getRowValues(i));
     }
 }

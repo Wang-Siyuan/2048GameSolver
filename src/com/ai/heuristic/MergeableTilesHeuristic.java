@@ -27,6 +27,6 @@ public class MergeableTilesHeuristic implements Heuristic {
 
     @Override
     public double getWeight() {
-        return 1.0;
+        return 2.0;
     }
 }

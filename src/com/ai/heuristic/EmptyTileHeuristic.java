@@ -17,14 +17,11 @@ public class EmptyTileHeuristic implements Heuristic {
                 }
             }
         }
-//        if (score < 5) {
-//            score -= 500;
-//        }
-        return Math.pow(2, score);
+        return score;
     }
 
     @Override
     public double getWeight() {
-        return 1.0;
+        return 3.0;
     }
 }

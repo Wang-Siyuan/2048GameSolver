@@ -8,12 +8,11 @@ import com.ai.model.GameState;
 public class MaxValueHeuristic implements Heuristic {
     @Override
     public double evaluate(GameState gameState) {
-        return (Math.log(gameState.getMax())/Math.log(2));
-//        return gameState.getMax();
+        return Math.log(gameState.getMax());
     }
 
     @Override
     public double getWeight() {
-        return 1.0;
+        return 2.0;
     }
 }

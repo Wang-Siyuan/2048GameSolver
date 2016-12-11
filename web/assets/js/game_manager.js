@@ -63,7 +63,7 @@ GameManager.prototype.autoPlay = function () {
     if (!this.won) {            //  if the counter < 10, call the loop function
       _this.autoPlay();             //  ..  again which will trigger another
     }                        //  ..  setTimeout()
-  }, 10);
+  }, 50);
 };
 
 // Keep playing after winning (allows going over 2048)

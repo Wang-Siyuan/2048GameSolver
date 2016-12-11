@@ -29,7 +29,7 @@ public class MonotonicityHeuristic implements Heuristic {
                 }
             }
             if(increase == list.size() || decrease == list.size()) {
-                score += 5;
+                score += 10;
             }
         }
 
@@ -51,7 +51,7 @@ public class MonotonicityHeuristic implements Heuristic {
                 }
             }
             if(increase2 == list2.size() || decrease2 == list2.size()) {
-                score += 5;
+                score += 10;
             }
         }
 

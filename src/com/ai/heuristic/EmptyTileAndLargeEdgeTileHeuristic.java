@@ -17,7 +17,7 @@ public class EmptyTileAndLargeEdgeTileHeuristic implements Heuristic {
                     score += gameState.tileValues[i][j]/avgVal;
                 }
                  else if(gameState.tileValues[i][j] == 0){
-                        score += 4;
+                        score += 6;
                 }
             }
         }

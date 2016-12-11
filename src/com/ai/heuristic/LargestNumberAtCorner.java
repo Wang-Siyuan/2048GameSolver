@@ -21,22 +21,22 @@ public class LargestNumberAtCorner implements Heuristic {
                 }
                 
                 if(gameState.tileValues[i][j] == 64){
-                    score += 3;
+                    score += 5;
                 }
                 if(gameState.tileValues[i][j] == 128){
-                    score += 7;
-                }
-                if(gameState.tileValues[i][j] == 256){
                     score += 15;
                 }
+                if(gameState.tileValues[i][j] == 256){
+                    score += 35;
+                }
                 if(gameState.tileValues[i][j] == 512){
-                    score += 31;
+                    score += 75;
                 }
                 if(gameState.tileValues[i][j] == 1024){
-                    score += 63;
+                    score += 155;
                 }
                 if(gameState.tileValues[i][j] == 2048) {
-                    score += 127;
+                    score += 400;
                 }
 
             }
@@ -86,7 +86,7 @@ public class LargestNumberAtCorner implements Heuristic {
             score += 2;
         }
         if((x == 0 && y == 0) || (x == 0 && y == 3) || (x == 3 && y == 0) || (x == 3 && y == 3)){
-            score ++;
+            score += 1;
         }
 
         return score;

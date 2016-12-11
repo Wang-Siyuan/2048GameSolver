@@ -5,6 +5,7 @@ import com.ai.heuristic.LargestNumberAtCorner;
 import com.ai.heuristic.MonotonicityHeuristic;
 import com.ai.heuristic.SmoothnessHeuristic;
 import com.ai.heuristic.Heuristic;
+import com.ai.heuristic.LosingStateHeuristic;
 import com.ai.model.*;
 
 import java.util.Map;
@@ -18,7 +19,7 @@ public class MinimaxGameManager {
     GameStateManager gameStateManager = new GameStateManager();
     HeuristicEvaluator heuristicEvaluator = new HeuristicEvaluator();
     Heuristic[] heuristics =  new Heuristic[]{new EmptyTileAndLargeEdgeTileHeuristic(),
-            new LargestNumberAtCorner(), new MonotonicityHeuristic(), new SmoothnessHeuristic()};
+            new LargestNumberAtCorner(), new MonotonicityHeuristic(), new SmoothnessHeuristic(), new LosingStateHeuristic()};
 
     public MinimaxGameManager() {
     }

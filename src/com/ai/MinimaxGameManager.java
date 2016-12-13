@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 public class MinimaxGameManager {
     GameStateManager gameStateManager = new GameStateManager();
     HeuristicEvaluator heuristicEvaluator = new HeuristicEvaluator();
-    long searchTimeMax = 1000;
     Heuristic[] heuristics =  new Heuristic[]{new EmptyTileAndLargeEdgeTileHeuristic(),
             new LargestNumberAtCorner(), new MonotonicityHeuristic(), new SmoothnessHeuristic(),
             new LosingStateHeuristic()};
@@ -33,7 +32,16 @@ public class MinimaxGameManager {
 //            GameTree gameTree = new GameTree(gameState, 5, MinimaxLevelType.Max);
 //            Log.getLogger(MinimaxGameManager.class.getName()).log(Level.INFO, "game tree ready");
 //            GameTreeNode gameTreeNode = gameTree.root;
-            int depth = gameState.getZeros() < 5 ? 7 : 5;
+            int depth = 5;
+            if (gameState.getZeros() <= 2) {
+                depth = 9;
+            } else if (gameState.getZeros() == 3) {
+                depth = 8;
+            } else if (gameState.getZeros() <= 7) {
+                depth = 7;
+            }else if (gameState.getZeros() < 11) {
+                depth = 6;
+            }
             double heuristicVal = heuristicEvaluator.evaluate(heuristics, gameState,
                     depth, MinimaxLevelType.Min, -1*Double.MAX_VALUE, Double.MAX_VALUE);
 //            Log.getLogger(MinimaxGameManager.class.getName()).log(Level.INFO, Integer.toString(heuristicVal));

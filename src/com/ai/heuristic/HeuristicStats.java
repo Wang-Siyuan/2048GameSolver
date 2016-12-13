@@ -35,11 +35,11 @@ public class HeuristicStats {
                 worstEvaluation.put(heuristic, new HeuristicEvaluation(gameState, score));
             }
         }
-        if (updateCounter++ % 50000 == 0) {
+        if (updateCounter++ % 500000 == 0) {
             Log.log(this.toString());
-            dominanceCounter = new HashMap<>();
-            bestEvaluation = new HashMap<>();
-            worstEvaluation = new HashMap<>();
+//            dominanceCounter = new HashMap<>();
+//            bestEvaluation = new HashMap<>();
+//            worstEvaluation = new HashMap<>();
         }
     }
 
@@ -47,9 +47,9 @@ public class HeuristicStats {
         Heuristic dominantHeuristic = null;
         double bestScore = -1 * Double.MAX_VALUE;
         for (Heuristic heuristic : evaluationResult.keySet()) {
-            if (heuristic instanceof EmptyTileAndLargeEdgeTileHeuristic) {
-                continue;
-            }
+//            if (heuristic instanceof EmptyTileAndLargeEdgeTileHeuristic) {
+//                continue;
+//            }
             if (dominantHeuristic == null || evaluationResult.get(heuristic).score > bestScore) {
                 bestScore = evaluationResult.get(heuristic).score;
                 dominantHeuristic = heuristic;

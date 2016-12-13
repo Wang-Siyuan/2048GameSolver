@@ -1,24 +1,41 @@
 package com.ai;
 
 import com.ai.heuristic.Heuristic;
-import com.ai.model.GameTreeNode;
+import com.ai.heuristic.HeuristicEvaluation;
+import com.ai.heuristic.HeuristicStats;
+import com.ai.model.Direction;
+import com.ai.model.GameState;
+import com.ai.model.MinimaxLevelType;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by z on 12/2/16.
  */
 public class HeuristicEvaluator {
+    GameStateManager gameStateManager = new GameStateManager();
+    HeuristicStats heuristicStats = new HeuristicStats();
 
-    public int evaluate(Heuristic[] heuristic, GameTreeNode gameTreeNode, int depth, MinimaxLevelType levelType, int alpha, int beta) {
+    public double evaluate(Heuristic[] heuristic, GameState gameState, int depth, MinimaxLevelType levelType, double alpha, double beta) {
         if (depth == 0) {
-            int val = 0;
+            double val = 0;
+            Map<Heuristic, HeuristicEvaluation> evaluationResult = new HashMap<>();
             for(Heuristic h : heuristic){
-                val += h.evaluate(gameTreeNode.gameState);
+                double score = h.evaluate(gameState) * h.getWeight();
+                evaluationResult.put(h, new HeuristicEvaluation(gameState, score));
+                val += score;
             }
+            heuristicStats.update(evaluationResult);
             return val;
-        }
-        if(levelType == MinimaxLevelType.Max){
-            for(GameTreeNode childNode : gameTreeNode.childNodes){
-                int val = evaluate(heuristic, childNode, depth - 1, MinimaxLevelType.getOppositeType(levelType), alpha, beta);
+        } else if(levelType == MinimaxLevelType.Max){
+            Map<GameState, Direction> allNextGameStateBySliding = gameStateManager.getAllNextGameStateBySliding(gameState);
+            for(GameState childGameState : allNextGameStateBySliding.keySet()){
+                if (childGameState.equals(gameState)) {
+                    continue;
+                }
+                double val = evaluate(heuristic, childGameState, depth - 1, MinimaxLevelType.getOppositeType(levelType), alpha, beta);
                 if(val > alpha){
                     alpha = val;
                 }
@@ -27,11 +44,13 @@ public class HeuristicEvaluator {
                 }
             }
             return alpha;
-        }
-
-        else if(levelType == MinimaxLevelType.Min){
-            for(GameTreeNode childNode : gameTreeNode.childNodes){
-                int val = evaluate(heuristic, childNode, depth - 1, MinimaxLevelType.getOppositeType(levelType), alpha, beta);
+        } else {
+            Set<GameState> allNextGameStateByAddingNewTile = gameStateManager.getAllNextGameStateByAddingNewTile(gameState);
+            for(GameState childGameState : allNextGameStateByAddingNewTile){
+                if (childGameState.equals(gameState)) {
+                    continue;
+                }
+                double val = evaluate(heuristic, childGameState, depth - 1, MinimaxLevelType.getOppositeType(levelType), alpha, beta);
                 if(val < beta){
                     beta = val;
                 }
@@ -39,20 +58,7 @@ public class HeuristicEvaluator {
                     break;
                 }
             }
-        }
-        return beta;
-    }
-
-    enum MinimaxLevelType {
-        Min,
-        Max;
-
-        public static MinimaxLevelType getOppositeType(MinimaxLevelType levelType) {
-            if (levelType == Min) {
-                return Max;
-            } else {
-                return Min;
-            }
+            return beta;
         }
     }
 }

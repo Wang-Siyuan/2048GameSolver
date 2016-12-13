@@ -7,8 +7,8 @@ import com.ai.model.GameState;
  */
 public class SmoothnessHeuristic implements Heuristic {
     @Override
-    public int evaluate(GameState gameState) {
-        int score = 0;
+    public double evaluate(GameState gameState) {
+        double score = 0;
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 3; j++){
                  //if(gameState.tileValues[i][j] != 0 && gameState.tileValues[i][j+1] == gameState.tileValues[i][j]){
@@ -32,6 +32,11 @@ public class SmoothnessHeuristic implements Heuristic {
 
             }
         }
-        return score;
+        return score-(16-gameState.getZeros())/4;
+    }
+
+    @Override
+    public double getWeight() {
+        return 2.0;
     }
 }

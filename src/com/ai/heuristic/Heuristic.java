@@ -6,5 +6,6 @@ import com.ai.model.GameState;
  * Created by z on 12/2/16.
  */
 public interface Heuristic {
-    int evaluate(GameState gameState);
+    double evaluate(GameState gameState);
+    double getWeight();
 }

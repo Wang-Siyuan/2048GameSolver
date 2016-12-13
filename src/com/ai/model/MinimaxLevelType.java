@@ -5,7 +5,7 @@ package com.ai.model;
  */
 public enum MinimaxLevelType {
     Min,
-    Max;
+    Max, MinimaxLevelType;
 
     public static MinimaxLevelType getOppositeType(MinimaxLevelType levelType) {
         if (levelType == Min) {

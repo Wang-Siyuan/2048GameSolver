@@ -34,7 +34,7 @@ public class BaseController {
     public String getNextBestMove(@RequestParam MultiValueMap<String, String> requestMap) {
         GameState gameState = new GameState(requestMap.getFirst("gameState"));
         Direction direction = minimaxGameManager.getNextBestMoveForUser(gameState);
-        Logger.getLogger(BaseController.class.getName()).log(Level.INFO, direction.name());
+//        Log.getLogger(BaseController.class.getName()).log(Level.INFO, direction.name());
         return Integer.toString(direction.numVal);
     }
 }

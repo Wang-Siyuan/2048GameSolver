@@ -8,14 +8,12 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by z on 12/13/16.
  */
 public class HeuristicEvaluatorTest {
     HeuristicEvaluator heuristicEvaluator = new HeuristicEvaluator();
-    Heuristic[] heuristics = new Heuristic[]{new EmptyTileAndLargeEdgeTileHeuristic(),
+    Heuristic[] heuristics = new Heuristic[]{new EmptyTilesHeuristic(),
             new LargestNumberAtCorner(), new MonotonicityHeuristic(), new SmoothnessHeuristic(),
             new LosingStateHeuristic()};
 

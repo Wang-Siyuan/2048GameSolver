@@ -4,8 +4,6 @@ import com.ai.heuristic.*;
 import com.ai.model.*;
 
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by z on 12/2/16.
@@ -13,7 +11,7 @@ import java.util.logging.Logger;
 public class MinimaxGameManager {
     GameStateManager gameStateManager = new GameStateManager();
     HeuristicEvaluator heuristicEvaluator = new HeuristicEvaluator();
-    Heuristic[] heuristics = new Heuristic[]{new EmptyTileAndLargeEdgeTileHeuristic(),
+    Heuristic[] heuristics = new Heuristic[]{new EmptyTilesHeuristic(),
             new LargestNumberAtCorner(), new MonotonicityHeuristic(), new SmoothnessHeuristic(),
             new LosingStateHeuristic()};
 

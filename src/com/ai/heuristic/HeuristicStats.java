@@ -47,7 +47,7 @@ public class HeuristicStats {
         Heuristic dominantHeuristic = null;
         double bestScore = -1 * Double.MAX_VALUE;
         for (Heuristic heuristic : evaluationResult.keySet()) {
-//            if (heuristic instanceof EmptyTileAndLargeEdgeTileHeuristic) {
+//            if (heuristic instanceof EmptyTilesHeuristic) {
 //                continue;
 //            }
             if (dominantHeuristic == null || evaluationResult.get(heuristic).score > bestScore) {

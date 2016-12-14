@@ -35,7 +35,7 @@ public class HeuristicStats {
                 worstEvaluation.put(heuristic, new HeuristicEvaluation(gameState, score));
             }
         }
-        if (updateCounter++ % 500000 == 0) {
+        if (updateCounter++ % 5000000 == 0) {
             Log.log(this.toString());
 //            dominanceCounter = new HashMap<>();
 //            bestEvaluation = new HashMap<>();

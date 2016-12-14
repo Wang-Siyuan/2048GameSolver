@@ -80,6 +80,6 @@ public class LargestNumberAtCorner implements Heuristic {
 
     @Override
     public double getWeight() {
-        return 2.0;
+        return 2.5;
     }
 }

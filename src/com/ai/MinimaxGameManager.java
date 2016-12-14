@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 public class MinimaxGameManager {
     GameStateManager gameStateManager = new GameStateManager();
     HeuristicEvaluator heuristicEvaluator = new HeuristicEvaluator();
-    Heuristic[] heuristics =  new Heuristic[]{new EmptyTileAndLargeEdgeTileHeuristic(),
+    Heuristic[] heuristics = new Heuristic[]{new EmptyTileAndLargeEdgeTileHeuristic(),
             new LargestNumberAtCorner(), new MonotonicityHeuristic(), new SmoothnessHeuristic(),
             new LosingStateHeuristic()};
 
@@ -37,13 +37,16 @@ public class MinimaxGameManager {
                 depth = 9;
             } else if (gameState.getZeros() == 3) {
                 depth = 8;
-            } else if (gameState.getZeros() <= 7) {
+            } else if (gameState.getZeros() <= 5) {
                 depth = 7;
-            }else if (gameState.getZeros() < 11) {
-                depth = 6;
             }
+//            } else if (gameState.getZeros() <= 7) {
+//                depth = 7;
+//            } else if (gameState.getZeros() < 11) {
+//                depth = 6;
+//            }
             double heuristicVal = heuristicEvaluator.evaluate(heuristics, gameState,
-                    depth, MinimaxLevelType.Min, -1*Double.MAX_VALUE, Double.MAX_VALUE);
+                    depth, MinimaxLevelType.Min, -1 * Double.MAX_VALUE, Double.MAX_VALUE);
 //            Log.getLogger(MinimaxGameManager.class.getName()).log(Level.INFO, Integer.toString(heuristicVal));
             if (heuristicVal > maxHeuristicValue || minHeuristicDirection == null) {
                 minHeuristicDirection = allNextGameStateBySliding.get(gameState);

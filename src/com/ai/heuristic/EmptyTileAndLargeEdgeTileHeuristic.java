@@ -26,6 +26,6 @@ public class EmptyTileAndLargeEdgeTileHeuristic implements Heuristic {
 
     @Override
     public double getWeight() {
-        return 10.0;
+        return 25.0;
     }
 }

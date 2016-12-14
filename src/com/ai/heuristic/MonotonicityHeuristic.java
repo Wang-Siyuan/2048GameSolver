@@ -10,12 +10,12 @@ import java.util.ArrayList;
 public class MonotonicityHeuristic implements Heuristic {
     @Override
     public double evaluate(GameState gameState) {
-        return gameState.getMonoticity();
+        return gameState.getMonoticity() + 25;
     }
 
     @Override
     public double getWeight() {
-        return 1.0;
+        return 2.5;
     }
 
 }

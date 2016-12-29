@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="2048gamesolverfinal" default="all">
+  
+  
+  <property file="2048gamesolver.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.tox/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.swc"/>
+    <include name="*.ane"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+  </patternset>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.org.springframework:spring-webmvc:3.1.0.release.classpath">
+    <pathelement location="${basedir}/lib/aopalliance-1.0.jar"/>
+    <pathelement location="${basedir}/lib/commons-logging-1.1.1.jar"/>
+    <pathelement location="${basedir}/lib/el-api-1.0.jar"/>
+    <pathelement location="${basedir}/lib/jsp-api-2.1.jar"/>
+    <pathelement location="${basedir}/lib/jstl-1.1.2.jar"/>
+    <pathelement location="${basedir}/lib/spring-aop-3.1.0.RELEASE.jar"/>
+    <pathelement location="${basedir}/lib/spring-asm-3.1.0.RELEASE.jar"/>
+    <pathelement location="${basedir}/lib/spring-beans-3.1.0.RELEASE.jar"/>
+    <pathelement location="${basedir}/lib/spring-context-3.1.0.RELEASE.jar"/>
+    <pathelement location="${basedir}/lib/spring-context-support-3.1.0.RELEASE.jar"/>
+    <pathelement location="${basedir}/lib/spring-core-3.1.0.RELEASE.jar"/>
+    <pathelement location="${basedir}/lib/spring-expression-3.1.0.RELEASE.jar"/>
+    <pathelement location="${basedir}/lib/spring-web-3.1.0.RELEASE.jar"/>
+    <pathelement location="${basedir}/lib/spring-webmvc-3.1.0.RELEASE.jar"/>
+    <pathelement location="${basedir}/lib/tomcat-servlet-api-7.0.8.jar"/>
+    <pathelement location="${basedir}/lib/validation-api-1.0.0.GA.jar"/>
+  </path>
+  
+  
+  <!-- Global Libraries -->
+  
+  <path id="library.junit:junit:4.12.classpath">
+    <pathelement location="/Users/z/IdeaProjects/2048GameSolverFinal/lib/hamcrest-core-1.3.jar"/>
+    <pathelement location="/Users/z/IdeaProjects/2048GameSolverFinal/lib/junit-4.12.jar"/>
+  </path>
+  
+  <path id="library.org.hibernate:hibernate-validator:4.3.1.final.classpath">
+    <pathelement location="/Users/z/IdeaProjects/2048GameSolverFinal/lib/hibernate-validator-4.3.1.Final.jar"/>
+    <pathelement location="/Users/z/IdeaProjects/2048GameSolverFinal/lib/jboss-logging-3.1.0.CR2.jar"/>
+    <pathelement location="/Users/z/IdeaProjects/2048GameSolverFinal/lib/validation-api-1.0.0.GA.jar"/>
+  </path>
+  
+  
+  <!-- Application Server Libraries -->
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module 2048GameSolverFinal -->
+  
+  <dirname property="module.2048gamesolverfinal.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.2048gamesolverfinal" value="-encoding UTF-8 -source 8 ${compiler.args}"/>
+  
+  <property name="2048gamesolverfinal.output.dir" value="${module.2048gamesolverfinal.basedir}/out/production/2048GameSolverFinal"/>
+  <property name="2048gamesolverfinal.testoutput.dir" value="${module.2048gamesolverfinal.basedir}/out/test/2048GameSolverFinal"/>
+  
+  <path id="2048gamesolverfinal.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="2048gamesolverfinal.module.production.classpath">
+    <path refid="library.org.springframework:spring-webmvc:3.1.0.release.classpath"/>
+    <path refid="library.junit:junit:4.12.classpath"/>
+    <path refid="library.org.hibernate:hibernate-validator:4.3.1.final.classpath"/>
+  </path>
+  
+  <path id="2048gamesolverfinal.runtime.production.module.classpath">
+    <pathelement location="${2048gamesolverfinal.output.dir}"/>
+    <path refid="library.org.springframework:spring-webmvc:3.1.0.release.classpath"/>
+    <path refid="library.junit:junit:4.12.classpath"/>
+    <path refid="library.org.hibernate:hibernate-validator:4.3.1.final.classpath"/>
+  </path>
+  
+  <path id="2048gamesolverfinal.module.classpath">
+    <pathelement location="${2048gamesolverfinal.output.dir}"/>
+    <path refid="library.org.springframework:spring-webmvc:3.1.0.release.classpath"/>
+    <path refid="library.junit:junit:4.12.classpath"/>
+    <path refid="library.org.hibernate:hibernate-validator:4.3.1.final.classpath"/>
+  </path>
+  
+  <path id="2048gamesolverfinal.runtime.module.classpath">
+    <pathelement location="${2048gamesolverfinal.testoutput.dir}"/>
+    <pathelement location="${2048gamesolverfinal.output.dir}"/>
+    <path refid="library.org.springframework:spring-webmvc:3.1.0.release.classpath"/>
+    <path refid="library.junit:junit:4.12.classpath"/>
+    <path refid="library.org.hibernate:hibernate-validator:4.3.1.final.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.2048gamesolverfinal">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.2048gamesolverfinal">
+    <patternset refid="excluded.from.module.2048gamesolverfinal"/>
+  </patternset>
+  
+  <path id="2048gamesolverfinal.module.sourcepath">
+    <dirset dir="${module.2048gamesolverfinal.basedir}">
+      <include name="src"/>
+      <include name="web"/>
+    </dirset>
+  </path>
+  
+  <path id="2048gamesolverfinal.module.test.sourcepath">
+    <dirset dir="${module.2048gamesolverfinal.basedir}">
+      <include name="tst"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.2048gamesolverfinal" depends="compile.module.2048gamesolverfinal.production,compile.module.2048gamesolverfinal.tests" description="Compile module 2048GameSolverFinal"/>
+  
+  <target name="compile.module.2048gamesolverfinal.production" description="Compile module 2048GameSolverFinal; production classes">
+    <mkdir dir="${2048gamesolverfinal.output.dir}"/>
+    <javac destdir="${2048gamesolverfinal.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.2048gamesolverfinal}"/>
+      <bootclasspath refid="2048gamesolverfinal.module.bootclasspath"/>
+      <classpath refid="2048gamesolverfinal.module.production.classpath"/>
+      <src refid="2048gamesolverfinal.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.2048gamesolverfinal"/>
+    </javac>
+    
+    <copy todir="${2048gamesolverfinal.output.dir}">
+      <fileset dir="${module.2048gamesolverfinal.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.2048gamesolverfinal.basedir}/web">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.2048gamesolverfinal.tests" depends="compile.module.2048gamesolverfinal.production" description="compile module 2048GameSolverFinal; test classes" unless="skip.tests">
+    <mkdir dir="${2048gamesolverfinal.testoutput.dir}"/>
+    <javac destdir="${2048gamesolverfinal.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.2048gamesolverfinal}"/>
+      <bootclasspath refid="2048gamesolverfinal.module.bootclasspath"/>
+      <classpath refid="2048gamesolverfinal.module.classpath"/>
+      <src refid="2048gamesolverfinal.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.2048gamesolverfinal"/>
+    </javac>
+    
+    <copy todir="${2048gamesolverfinal.testoutput.dir}">
+      <fileset dir="${module.2048gamesolverfinal.basedir}/tst">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.2048gamesolverfinal" description="cleanup module">
+    <delete dir="${2048gamesolverfinal.output.dir}"/>
+    <delete dir="${2048gamesolverfinal.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.2048gamesolverfinal, clean.artifact.webapp-exploded" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.2048gamesolverfinal" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.webapp" value="${basedir}/out/artifacts/WebApp"/>
+    <property name="artifact.output.webapp-exploded" value="${basedir}/out/artifacts/WebApp_Exploded"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.WebApp.war" value="${artifacts.temp.dir}/WebApp.war"/>
+  </target>
+  
+  <target name="clean.artifact.webapp-exploded" description="clean WebApp-Exploded artifact output">
+    <delete dir="${artifact.output.webapp-exploded}"/>
+  </target>
+  
+  <target name="artifact.webapp" depends="init.artifacts, artifact.webapp-exploded" description="Build &#39;WebApp&#39; artifact">
+    <property name="artifact.temp.output.webapp" value="${artifacts.temp.dir}/WebApp"/>
+    <mkdir dir="${artifact.temp.output.webapp}"/>
+    <zip destfile="${temp.jar.path.WebApp.war}">
+      <zipfileset dir="${artifact.output.webapp-exploded}"/>
+    </zip>
+    <copy file="${temp.jar.path.WebApp.war}" tofile="${artifact.temp.output.webapp}/WebApp.war"/>
+  </target>
+  
+  <target name="artifact.webapp-exploded" depends="init.artifacts, compile.module.2048gamesolverfinal, compile.module.2048gamesolverfinal" description="Build &#39;WebApp-Exploded&#39; artifact">
+    <mkdir dir="${artifact.output.webapp-exploded}"/>
+    <mkdir dir="${artifact.output.webapp-exploded}/WEB-INF"/>
+    <mkdir dir="${artifact.output.webapp-exploded}/WEB-INF/classes"/>
+    <copy todir="${artifact.output.webapp-exploded}/WEB-INF/classes">
+      <fileset dir="${2048gamesolverfinal.output.dir}"/>
+    </copy>
+    <mkdir dir="${artifact.output.webapp-exploded}/WEB-INF/lib"/>
+    <copy file="${basedir}/lib/junit-4.12.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/junit-4.12.jar"/>
+    <copy file="${basedir}/lib/hamcrest-core-1.3.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/hamcrest-core-1.3.jar"/>
+    <copy file="${basedir}/lib/spring-webmvc-3.1.0.RELEASE.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/spring-webmvc-3.1.0.RELEASE.jar"/>
+    <copy file="${basedir}/lib/el-api-1.0.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/el-api-1.0.jar"/>
+    <copy file="${basedir}/lib/tomcat-servlet-api-7.0.8.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/tomcat-servlet-api-7.0.8.jar"/>
+    <copy file="${basedir}/lib/jsp-api-2.1.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/jsp-api-2.1.jar"/>
+    <copy file="${basedir}/lib/jstl-1.1.2.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/jstl-1.1.2.jar"/>
+    <copy file="${basedir}/lib/spring-asm-3.1.0.RELEASE.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/spring-asm-3.1.0.RELEASE.jar"/>
+    <copy file="${basedir}/lib/spring-beans-3.1.0.RELEASE.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/spring-beans-3.1.0.RELEASE.jar"/>
+    <copy file="${basedir}/lib/spring-core-3.1.0.RELEASE.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/spring-core-3.1.0.RELEASE.jar"/>
+    <copy file="${basedir}/lib/commons-logging-1.1.1.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/commons-logging-1.1.1.jar"/>
+    <copy file="${basedir}/lib/spring-context-3.1.0.RELEASE.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/spring-context-3.1.0.RELEASE.jar"/>
+    <copy file="${basedir}/lib/spring-aop-3.1.0.RELEASE.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/spring-aop-3.1.0.RELEASE.jar"/>
+    <copy file="${basedir}/lib/aopalliance-1.0.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/aopalliance-1.0.jar"/>
+    <copy file="${basedir}/lib/spring-expression-3.1.0.RELEASE.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/spring-expression-3.1.0.RELEASE.jar"/>
+    <copy file="${basedir}/lib/spring-context-support-3.1.0.RELEASE.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/spring-context-support-3.1.0.RELEASE.jar"/>
+    <copy file="${basedir}/lib/spring-web-3.1.0.RELEASE.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/spring-web-3.1.0.RELEASE.jar"/>
+    <copy file="${basedir}/lib/validation-api-1.0.0.GA.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/validation-api-1.0.0.GA.jar"/>
+    <copy file="${basedir}/lib/hibernate-validator-4.3.1.Final.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/hibernate-validator-4.3.1.Final.jar"/>
+    <copy file="${basedir}/lib/validation-api-1.0.0.GA.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/validation-api-1.0.0.GA.jar"/>
+    <copy file="${basedir}/lib/jboss-logging-3.1.0.CR2.jar" tofile="${artifact.output.webapp-exploded}/WEB-INF/lib/jboss-logging-3.1.0.CR2.jar"/>
+    <copy file="${basedir}/web/WEB-INF/servlet-context.xml" tofile="${artifact.output.webapp-exploded}/WEB-INF/servlet-context.xml"/>
+    <copy todir="${artifact.output.webapp-exploded}">
+      <fileset dir="${2048gamesolverfinal.output.dir}"/>
+    </copy>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.webapp, artifact.webapp-exploded" description="Build all artifacts">
+    <mkdir dir="${artifact.output.webapp}"/>
+    <copy todir="${artifact.output.webapp}">
+      <fileset dir="${artifact.temp.output.webapp}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

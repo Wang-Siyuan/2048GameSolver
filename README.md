@@ -1,5 +1,4 @@
 # Project Repository for Course CS 4701 at Cornell
-## 2048GameSolver
 ## AI solver for the game 2048. 
 
 Here are the step-by-step instructions for setting up the server locally:

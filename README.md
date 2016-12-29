@@ -8,5 +8,8 @@ Here are the step-by-step instructions for setting up the server locally:
 * Now Download Tomcat 8.0(Core): https://tomcat.apache.org/download-80.cgi. Note down the path to your tomcat executables
 * From your project directory, execute: ```cp -R out/artifacts/WebApp_Exploded/* <path-to-your-tomcat-folder>/webapps/ROOT/``` 
   E.g. cp -R out/artifacts/WebApp_Exploded/* ~/Downloads/apache-tomcat-8.5.9/webapps/ROOT/
-* Now execute <path to tomcat>/bin/catalina.sh run
+* Change the permission for your catalina executable: ```sudo chmod 777 <path-to-your-apache-tomcat-folder>/bin/catalina.sh```
+  E.g. sudo chmod 777 /Users/z/Downloads/apache-tomcat-8.5.9/bin/catalina.sh
+* Now execute ```<path to tomcat>/bin/catalina.sh run```
   E.g. /Users/z/Downloads/apache-tomcat-8.5.9/bin/catalina.sh run
+* Open your browser and go to: http://localhost:8080/home
